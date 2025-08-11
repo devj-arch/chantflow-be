@@ -13,10 +13,27 @@ connectDB()
 const app = express()
 const PORT = process.env.PORT || 5000
 
+// app.use(cors({
+//   origin: 'http://localhost:5173', // Vite dev server
+//   credentials: true // if you're using cookies/sessions
+// }));
+
+const allowedOrigins = [
+  'http://localhost:5173',  // local dev
+  'https://chantflow-fe.onrender.com/'  // production
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite dev server
-  credentials: true // if you're using cookies/sessions
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
 
 app.use(express.json())
 app.use(cookieParser())
