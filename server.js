@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 5000
 
 const allowedOrigins = [
   'http://localhost:5173',  // local dev
-  'https://chantflow-fe.onrender.com/'  // production
+  'https://chantflow-fe.onrender.com'  // production
 ];
 
 app.use(cors({
