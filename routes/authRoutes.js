@@ -53,16 +53,18 @@ router.post('/login', async(req, res) => {
 
     res.cookie('accessToken', accessToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "None",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: '/',
+      maxAge: 60 * 60 * 1000,
     })
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: false,
+      secure: true,
       sameSite: "None",
-      maxAge: 60 * 60 * 1000,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
     res.status(200).json({ userId: user._id, name: user.name });
@@ -90,14 +92,14 @@ router.post("/logout", (req, res) => {
     secure: true,
     sameSite: "None",
     path: "/",
-    maxAge: 7 * 24 * 60 * 60 * 1000
+
   });
   res.clearCookie("accessToken", {
     httpOnly: true,
     secure: true,
     sameSite: "None",
     path: "/",
-    maxAge: 60 * 60 * 1000
+
   });
   res.json({ msg: "Logged out successfully" });
 });
