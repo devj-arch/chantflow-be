@@ -90,12 +90,14 @@ router.post("/logout", (req, res) => {
     secure: true,
     sameSite: "None",
     path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000
   });
   res.clearCookie("accessToken", {
     httpOnly: true,
     secure: true,
     sameSite: "None",
     path: "/",
+    maxAge: 60 * 60 * 1000
   });
   res.json({ msg: "Logged out successfully" });
 });
